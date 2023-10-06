@@ -9,6 +9,7 @@ import { renderPage } from 'vike/server'
 import { root } from './root.js'
 import fetch from 'node-fetch'
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client'
+import '../dist/server/importBuild.cjs'
 
 startServer()
 
