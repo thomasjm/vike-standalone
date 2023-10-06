@@ -2,7 +2,7 @@
 
 set -eo pipefail
 
-npm run build
+pnpm run build
 
 DIR=$(mktemp -d)
 
