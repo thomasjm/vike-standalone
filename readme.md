@@ -8,5 +8,6 @@ Based on the [graphql-apollo-react](https://github.com/vikejs/vike/tree/main/exa
 ```bash
 git clone git@github.com:thomasjm/vike-standalone.git
 pnpm install
-pnpm run try-standalone
+pnpm run build
+pnpm run server:prod
 ```
