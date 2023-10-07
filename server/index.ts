@@ -1,8 +1,3 @@
-// This file isn't processed by Vite, see https://github.com/vikejs/vike/issues/562
-// Consequently:
-//  - When changing this file, you needed to manually restart your server for your changes to take effect.
-//  - To use your environment variables defined in your .env files, you need to install dotenv, see https://vike.dev/env
-//  - To use your path aliases defined in your vite.config.js, you need to tell Node.js about them, see https://vike.dev/path-aliases
 
 import express from 'express'
 import { renderPage } from 'vike/server'
@@ -10,25 +5,20 @@ import { root } from './root.js'
 import fetch from 'node-fetch'
 import apollo from '@apollo/client'
 const { ApolloClient, createHttpLink, InMemoryCache } = apollo
-const isProduction = process.env.NODE_ENV === 'production'
 
 startServer()
 
 async function startServer() {
   const app = express()
 
-  if (isProduction) {
-    app.use(express.static(`${root}/dist/client`))
-  } else {
-    const vite = await import('vite')
-    const viteDevMiddleware = (
-      await vite.createServer({
-        root,
-        server: { middlewareMode: true }
-      })
-    ).middlewares
-    app.use(viteDevMiddleware)
-  }
+  const vite = await import('vite')
+  const viteDevMiddleware = (
+    await vite.createServer({
+      root,
+      server: { middlewareMode: true }
+    })
+  ).middlewares
+  app.use(viteDevMiddleware)
 
   app.get('*', async (req, res, next) => {
     // It's important to create an entirely new instance of Apollo Client for each request.
