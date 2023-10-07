@@ -2,13 +2,12 @@
 
 set -eo pipefail
 
-pnpm run build
-
 DIR=$(mktemp -d)
 
 echo "Copying dist dir to $DIR"
 cp -r dist "$DIR"
 
-echo "Switching to dir and starting standalone server..."
+echo "Switching to $DIR and starting standalone server..."
 cd "$DIR"
+export NODE_ENV=production
 node dist/server/index.mjs

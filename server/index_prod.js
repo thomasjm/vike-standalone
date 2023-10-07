@@ -9,7 +9,15 @@ import { renderPage } from 'vike/server'
 import { root } from './root.js'
 import fetch from 'node-fetch'
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client'
-import '../dist/server/importBuild.cjs'
+
+(async () => {
+  const { setImportBuildGetters } = await import('../node_modules/vike/dist/esm/node/runtime/globalContext/loadImportBuild.js');
+  setImportBuildGetters({
+    pageFiles: () => import(null),
+    clientManifest: () => import(null),
+    pluginManifest: () => import(null),
+  });
+})()
 
 startServer()
 
